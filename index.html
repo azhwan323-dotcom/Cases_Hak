@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>کاسِس هک — Cases Hack</title>
+  <title>کاسِس هک</title>
   <style>
     * {
       box-sizing: border-box;
@@ -13,12 +13,12 @@
     body {
       margin: 0;
       padding: 0;
-      background: #0b1120;
+      background: #090d16;
       color: #f1f5f9;
-      line-height: 1.7;
+      line-height: 1.8;
     }
 
-    /* نوار نصب برنامه — فقط در سایت (مرورگر) ظاهر می‌شود */
+    /* نوار نصب برنامه — فقط در سایت نمایش داده می‌شود */
     .web-install-bar {
       display: none;
       position: sticky;
@@ -28,22 +28,22 @@
       justify-content: space-between;
       gap: 10px;
       padding: 10px 14px;
-      background: #132038;
-      border-bottom: 1px solid #253b63;
+      background: #111c33;
+      border-bottom: 1px solid #233863;
     }
 
     .web-install-bar.show-on-web {
       display: flex;
     }
 
-    .web-install-bar span {
+    .web-install-title {
       font-size: 13px;
       font-weight: bold;
       color: #e2e8f0;
     }
 
     .install-btn {
-      padding: 7px 14px;
+      padding: 8px 15px;
       border-radius: 8px;
       background: #16a34a;
       color: #ffffff;
@@ -54,127 +54,156 @@
     }
 
     .container {
-      max-width: 780px;
+      max-width: 760px;
       margin: 0 auto;
       padding: 16px;
     }
 
-    .hero {
-      background: linear-gradient(135deg, #172554, #1e293b);
-      border: 1px solid #334155;
+    .brand-header {
+      background: linear-gradient(135deg, #132242, #1a2436);
+      border: 1px solid #293852;
       border-radius: 14px;
       padding: 18px;
-      margin-bottom: 16px;
+      margin-bottom: 14px;
+      text-align: center;
     }
 
-    .hero h1 {
+    .brand-header h1 {
       margin: 0 0 6px 0;
-      font-size: 22px;
+      font-size: 23px;
       color: #38bdf8;
     }
 
-    .hero p {
+    .brand-header p {
       margin: 0;
       font-size: 13px;
-      color: #cbd5e1;
+      color: #94a3b8;
     }
 
-    .search-box {
+    .search-input {
       width: 100%;
       padding: 11px 14px;
       border-radius: 10px;
-      border: 1px solid #334155;
-      background: #1e293b;
+      border: 1px solid #283548;
+      background: #111827;
       color: #f8fafc;
       font-size: 14px;
       margin-bottom: 14px;
       outline: none;
     }
 
-    .tabs {
+    .search-input:focus {
+      border-color: #38bdf8;
+    }
+
+    .menu-list {
       display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-bottom: 16px;
+      flex-direction: column;
+      gap: 10px;
     }
 
-    .tab-btn {
-      padding: 8px 14px;
-      border-radius: 9px;
-      border: 1px solid #334155;
-      background: #1e293b;
-      color: #e2e8f0;
-      font-size: 13px;
-      cursor: pointer;
-    }
-
-    .tab-btn.active {
-      background: #2563eb;
-      border-color: #3b82f6;
-      color: #fff;
-      font-weight: bold;
-    }
-
-    .card {
-      background: #111827;
-      border: 1px solid #1f2937;
+    .menu-btn {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 14px 16px;
       border-radius: 12px;
-      padding: 14px;
-      margin-bottom: 12px;
-    }
-
-    .card-title {
-      font-size: 15px;
-      font-weight: bold;
+      border: 1px solid #243247;
+      background: #111827;
       color: #f8fafc;
-      margin: 0 0 6px 0;
+      font-size: 14px;
+      font-weight: bold;
+      text-align: right;
+      cursor: pointer;
+      text-decoration: none;
+      transition: 0.18s ease;
     }
 
-    .card-desc {
-      font-size: 13px;
+    .menu-btn:hover {
+      background: #182234;
+      border-color: #38bdf8;
+    }
+
+    .menu-btn.telegram-btn {
+      background: #0c2742;
+      border-color: #0284c7;
+      color: #7dd3fc;
+    }
+
+    .menu-badge {
+      font-size: 11px;
+      padding: 3px 8px;
+      border-radius: 999px;
+      background: #1e293b;
       color: #94a3b8;
-      margin: 0 0 10px 0;
+      white-space: nowrap;
     }
 
-    .code-box {
-      background: #020617;
-      border: 1px solid #1e293b;
-      border-radius: 8px;
-      padding: 10px;
-      font-family: monospace;
-      font-size: 12px;
-      color: #86efac;
-      overflow-x: auto;
-      margin-bottom: 10px;
-      direction: ltr;
-      text-align: left;
+    .content-panel {
+      margin-top: 16px;
+      background: #0f172a;
+      border: 1px solid #26354d;
+      border-radius: 14px;
+      padding: 16px;
+      display: none;
     }
 
-    .actions {
+    .content-panel.active {
+      display: block;
+    }
+
+    .panel-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 12px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #1e293b;
+    }
+
+    .panel-title {
+      margin: 0;
+      font-size: 16px;
+      color: #38bdf8;
+    }
+
+    .action-row {
       display: flex;
       gap: 8px;
       flex-wrap: wrap;
     }
 
-    .btn {
-      padding: 7px 12px;
+    .small-btn {
+      padding: 6px 12px;
       border-radius: 8px;
       border: none;
       font-size: 12px;
       font-weight: bold;
       cursor: pointer;
-      text-decoration: none;
-      display: inline-block;
     }
 
-    .btn-copy {
+    .copy-btn {
       background: #0284c7;
-      color: #fff;
+      color: #ffffff;
     }
 
-    .btn-link {
+    .close-btn {
       background: #334155;
       color: #f8fafc;
+    }
+
+    .tutorial-text {
+      margin: 0;
+      white-space: pre-line;
+      font-size: 13.5px;
+      color: #e2e8f0;
+      background: #050811;
+      border: 1px solid #1c273b;
+      border-radius: 10px;
+      padding: 14px;
     }
 
     .toast {
@@ -183,7 +212,7 @@
       left: 50%;
       transform: translateX(-50%);
       background: #16a34a;
-      color: #fff;
+      color: #ffffff;
       padding: 8px 16px;
       border-radius: 8px;
       font-size: 13px;
@@ -194,46 +223,114 @@
 </head>
 <body>
 
-  <!-- نوار نصب برنامه (فقط در سایت ظاهر می‌شود) -->
+  <!-- نوار نصب برنامه مستقیم (فقط در سایت ظاهر می‌شود) -->
   <div id="webInstallBar" class="web-install-bar">
-    <span>نسخه اندروید کاسِس هک</span>
+    <span class="web-install-title">کاسِس هک — نسخه اندروید</span>
     <a
+      id="directApkLink"
       class="install-btn"
-      href="https://github.com/azhwan323-dotcom/Cases_Hak/releases"
-      target="_blank"
-      rel="noopener noreferrer"
+      href="https://raw.githubusercontent.com/azhwan323-dotcom/Cases_Hak/main/Cases-Hack.apk"
+      download="Cases-Hack.apk"
     >
       نصب برنامه
     </a>
   </div>
 
   <div class="container">
-    <div class="hero">
-      <h1>کاسِس هک | Cases Hack</h1>
-      <p>دسترسی سریع به دستورات، ابزارها و راهنماها</p>
+    <div class="brand-header">
+      <h1>کاسِس هک</h1>
+      <p>منوی سریع آموزش‌ها و ابزارها</p>
     </div>
 
     <input
       type="text"
-      id="searchInput"
-      class="search-box"
-      placeholder="جستجو در بخش‌ها و دستورات..."
-      oninput="renderItems()"
+      id="searchBox"
+      class="search-input"
+      placeholder="جستجوی سریع بین گزینه‌ها..."
+      oninput="filterMenu()"
     />
 
-    <div class="tabs" id="tabsContainer">
-      <button class="tab-btn active" data-cat="all" onclick="selectCategory('all', this)">همه</button>
-      <button class="tab-btn" data-cat="termux" onclick="selectCategory('termux', this)">ترمواکس و پایتون</button>
-      <button class="tab-btn" data-cat="web" onclick="selectCategory('web', this)">وب و گیت‌هاب</button>
-      <button class="tab-btn" data-cat="links" onclick="selectCategory('links', this)">لینک‌ها</button>
+    <div class="menu-list" id="menuList">
+      <!-- ۱. هک چنل و گروه تلگرام -->
+      <button
+        class="menu-btn"
+        data-keywords="هک چنل گروه تلگرام کانال"
+        onclick="openTutorial('هک چنل و گروه تلگرام', 'channel_group')"
+      >
+        <span>هک چنل و گروه تلگرام</span>
+        <span class="menu-badge">آموزش</span>
+      </button>
+
+      <!-- ۲. هک گالری و دوربین گوشی -->
+      <button
+        class="menu-btn"
+        data-keywords="هک گالری دوربین گوشی ترموکس cam"
+        onclick="openTutorial('هک گالری و دوربین گوشی', 'cam')"
+      >
+        <span>هک گالری و دوربین گوشی</span>
+        <span class="menu-badge">ترموکس</span>
+      </button>
+
+      <!-- ۳. هک اکانت روبیکا -->
+      <button
+        class="menu-btn"
+        data-keywords="هک اکانت روبیکا rubika ترموکس"
+        onclick="openTutorial('هک اکانت روبیکا', 'rubika')"
+      >
+        <span>هک اکانت روبیکا</span>
+        <span class="menu-badge">ترموکس</span>
+      </button>
+
+      <!-- ۴. ساخت پروکسی تلگرام با ترموکس -->
+      <button
+        class="menu-btn"
+        data-keywords="ساخت پروکسی تلگرام ترموکس tor 9050 127.0.0.1"
+        onclick="openTutorial('ساخت پروکسی تلگرام با ترموکس', 'proxy')"
+      >
+        <span>ساخت پروکسی تلگرام با ترموکس</span>
+        <span class="menu-badge">پروکسی</span>
+      </button>
+
+      <!-- ۵. آپدیت کردن برنامه ترموکس -->
+      <button
+        class="menu-btn"
+        data-keywords="آپدیت کردن برنامه ترموکس update upgrade"
+        onclick="openTutorial('آپدیت کردن برنامه ترموکس', 'update_termux')"
+      >
+        <span>آپدیت کردن برنامه ترموکس</span>
+        <span class="menu-badge">آپدیت</span>
+      </button>
+
+      <!-- ۶. عضویت در کانال تلگرامی هک -->
+      <a
+        class="menu-btn telegram-btn"
+        data-keywords="عضویت کانال تلگرام هک hak_Cases"
+        href="https://t.me/hak_Cases"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <span>عضویت در کانال تلگرامی هک</span>
+        <span class="menu-badge">@hak_Cases</span>
+      </a>
     </div>
 
-    <div id="itemsList"></div>
+    <!-- پنل نمایش متن گزینه انتخاب‌شده -->
+    <div id="contentPanel" class="content-panel">
+      <div class="panel-top">
+        <h2 id="panelTitle" class="panel-title"></h2>
+        <div class="action-row">
+          <button class="small-btn copy-btn" onclick="copyCurrentText()">کپی متن</button>
+          <button class="small-btn close-btn" onclick="closePanel()">بستن</button>
+        </div>
+      </div>
+      <div id="tutorialText" class="tutorial-text"></div>
+    </div>
   </div>
 
   <div id="toast" class="toast">کپی شد!</div>
 
   <script>
+    // تشخیص محیط برنامه اندرویدی از مرورگر سایت
     const isCapacitorApp =
       window.location.protocol === "capacitor:" ||
       (window.Capacitor &&
@@ -244,37 +341,96 @@
       document.getElementById("webInstallBar").classList.add("show-on-web");
     }
 
-    const items = [
-      {
-        cat: "termux",
-        title: "آپدیت سریع محیط ترمواکس",
-        desc: "به‌روزرسانی پکیج‌ها و نصب ابزارهای پایه",
-        code: "pkg update && pkg upgrade -y && pkg install python git -y",
-        url: ""
-      },
-      {
-        cat: "web",
-        title: "لینک کوتاه سایت کاسِس هک",
-        desc: "آدرس کوتاه‌شده برای اشتراک‌گذاری سریع",
-        code: "",
-        url: "https://tinyurl.com/Cases-hak"
-      },
-      {
-        cat: "links",
-        title: "مخزن گیت‌هاب Cases_Hak",
-        desc: "مشاهده فایل‌ها، سورس و ریلیزهای پروژه",
-        code: "",
-        url: "https://github.com/azhwan323-dotcom/Cases_Hak"
-      }
-    ];
+    const TUTORIALS = {
+      channel_group: `اموزش هک چنل تلگرام😈
+کافیه یک چنل خصوصی بسازین و لینک چنلی که میخواید را هک کنید رو داخل چنل خودتون میزاریم و روی لینک کانال قربانی میزنی و میری داخلش و ۲۱ بار روی پروفایل میزنید و مییا  بیرون بعد داخل ۵ بار از کانال او بیاید بیرون و برید بیرون و در اخر باید لفت بدید و بعد از طریق لینکی که در چنل گذاشتین وارد چنلش میشین و میبینی سوپرایزز😈
 
-    let activeCategory = "all";
+حالا اموزش هک گروه تلگرام👌
+کافیه عضو گروه بشین و هرطوری باشه ادمین بشید و ۲ بار از گروه لف میدین و دوباره میاین داخل گروه و با هر ۲بار لفت دادن  و عضو شدن در گروهش ۵ عضو از گروهش کم میشه و مثلا شما ۴ بار اینکار بکنین ۱۰ عضو کم میشه و اون نمیدونه کار کی هست و بعدا لفت هم بدین هنوز کار میکنه😈`,
 
-    function selectCategory(cat, btnEl) {
-      activeCategory = cat;
-      document.querySelectorAll(".tab-btn").forEach((b) => b.classList.remove("active"));
-      btnEl.classList.add("active");
-      renderItems();
+      cam: `خب دوستان برای این کار باید ترموکس رو از گوگل پلی نصب بکنید یا همون فروشگاه اگه تونستین در سایت اصلی ترموکس نصب بکنین توجه کنید از سایت های دیگه نصب نکنید چون هک میشین خب اگه نصب کردین کد ها را به ترتیب بزنید در ترموکس
+apt update
+apt upgrade
+pkg install wget php git openssl
+git clone https://github.com/HACKGM/cam
+cd cam
+bash cam.sh
+هرجایی هم سوال پرسید [n/y [کلمه Y رو بفرستید،
+اگه میخواید همه دستورات بالا رو باهمدیگه وارد کنید n رو بزنید 
+
+خب حالا باید تا مرحله نصب رسیده باشید ،
+کافیه گزینه ۲ رو بفرستید که با ngrok پورت فراوردینگ انجام بشه و لینکی که باید به قربانی بدید
+واستون ارسال بشه،
+
+اگه در مواقعی پیش اومد که لینک نداد دوباره تست کنید و چک کنید نقطه اتصال همراه روشن باشه و
+فیلترشکنتون خاموش باشه :)
+اگه قربانی دسترسی به دوربین رو نده عکسش براتون ارسال نمیشه و فقط ای پیش میاد،
+وقتی عکس قربانی ارسال شد براتون و میخواید سیوش کنید ابتدا دکمه CTRL رو بزنید و بعدش کلمه C
+رو بزنید تا به مرحله دریافت اطلاعات قربانی پایان داده بشه ،
+سپس دستور ls
+رو بزنید تا وارد پوشه عکس ها بشید بعدشم دستور
+mv *png /sdcard
+رو بزنید تا عکسا توی حافظه داخلی گوشیتون سیو بشن`,
+
+      rubika: `خب دوستان برای این اموزش هم باید ترموکس رو نصب بکنید و حتما از گوگل پلی یا سایت خودش نه در سایت های دیگه چون هک میشین خب اگه نصب کردین این کد هارا به ترتیب بزنید در ترموکس 
+pkg install git
+
+pkg install python
+
+git clone
+https://github.com/mazyar17/hack
+
+-rubika.git
+
+cd hack-rubika
+
+Is
+
+python hack-rubika.py
+
+حالا شماره قربانی را وارد کنید و کد را دریافت کنین و تمام هک میشه`,
+
+      proxy: ` خب دوستان این کد هارا به ترتیب در ترموکس بزنید
+
+ apt update 
+
+apk install tor
+
+tor
+بعد خودکار پروکسی روی تلگرام و گوشی شما ساخته میشه و به مرورگر تور وصل میشه
+پروکسی تلگرام را این بنویسید : ۱۲۷.٠.٠.۱
+و پورت را این : ۹٠۵٠
+و تمام شد و این کار در نت ملی هم جواب میده`,
+
+      update_termux: ` خب دوستان کافیه این کد هارا به ترتیب در ترموکس بزنید 
+شروع
+apt update
+ apt upgrade
+ pkg install git
+ pkg install python
+ pkg install ruby
+ pkg install perl$
+pkg install nodejs
+پایان
+و ترموکس شما اپدید میشه`
+    };
+
+    let currentText = "";
+
+    function openTutorial(title, key) {
+      const panel = document.getElementById("contentPanel");
+      const titleEl = document.getElementById("panelTitle");
+      const textEl = document.getElementById("tutorialText");
+
+      currentText = TUTORIALS[key] || "";
+      titleEl.textContent = title;
+      textEl.textContent = currentText;
+      panel.classList.add("active");
+      panel.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    }
+
+    function closePanel() {
+      document.getElementById("contentPanel").classList.remove("active");
     }
 
     function showToast(msg) {
@@ -283,60 +439,23 @@
       toast.style.display = "block";
       setTimeout(() => {
         toast.style.display = "none";
-      }, 1800);
+      }, 1700);
     }
 
-    function copyText(text) {
-      navigator.clipboard.writeText(text).then(() => {
-        showToast("کپی شد!");
+    function copyCurrentText() {
+      if (!currentText) return;
+      navigator.clipboard.writeText(currentText).then(() => {
+        showToast("متن و دستورات کپی شد!");
       });
     }
 
-    function renderItems() {
-      const q = document.getElementById("searchInput").value.trim().toLowerCase();
-      const listEl = document.getElementById("itemsList");
-
-      const filtered = items.filter((item) => {
-        const matchCat = activeCategory === "all" || item.cat === activeCategory;
-        const matchQuery =
-          !q ||
-          item.title.toLowerCase().includes(q) ||
-          item.desc.toLowerCase().includes(q) ||
-          (item.code && item.code.toLowerCase().includes(q));
-        return matchCat && matchQuery;
+    function filterMenu() {
+      const q = document.getElementById("searchBox").value.trim().toLowerCase();
+      document.querySelectorAll("#menuList .menu-btn").forEach((el) => {
+        const text = (el.textContent + " " + (el.dataset.keywords || "")).toLowerCase();
+        el.style.display = !q || text.includes(q) ? "flex" : "none";
       });
-
-      if (!filtered.length) {
-        listEl.innerHTML = '<div class="card"><p class="card-desc">موردی پیدا نشد.</p></div>';
-        return;
-      }
-
-      listEl.innerHTML = filtered
-        .map(
-          (item) => `
-          <div class="card">
-            <h3 class="card-title">${item.title}</h3>
-            <p class="card-desc">${item.desc}</p>
-            ${item.code ? `<div class="code-box">${item.code}</div>` : ""}
-            <div class="actions">
-              ${
-                item.code
-                  ? `<button class="btn btn-copy" onclick="copyText(\`${item.code.replace(/`/g, "\\`")}\`)">کپی کد</button>`
-                  : ""
-              }
-              ${
-                item.url
-                  ? `<a class="btn btn-link" href="${item.url}" target="_blank" rel="noopener noreferrer">باز کردن لینک</a>`
-                  : ""
-              }
-            </div>
-          </div>
-        `
-        )
-        .join("");
     }
-
-    renderItems();
   </script>
 </body>
 </html>
