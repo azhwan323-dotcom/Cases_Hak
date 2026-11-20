@@ -8,6 +8,10 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      ANDROID_HOME: /usr/local/lib/android/sdk
+      ANDROID_SDK_ROOT: /usr/local/lib/android/sdk
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -22,9 +26,6 @@ jobs:
         with:
           distribution: temurin
           java-version: 17
-
-      - name: Setup Android SDK
-        uses: android-actions/setup-android@v3
 
       - name: Prepare web assets, app icon, and Capacitor
         run: |
@@ -61,3 +62,4 @@ jobs:
         with:
           name: cases-hack-app-zip
           path: cases-hack-apk.zip
+          
