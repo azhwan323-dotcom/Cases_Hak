@@ -1,0 +1,63 @@
+name: Build Cases Hack APK
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Prepare web assets, app icon, and Capacitor
+        run: |
+          mkdir -p www assets
+          cp index.html www/index.html
+          if [ -f icon.png ]; then
+            cp icon.png www/icon.png
+            cp icon.png assets/icon.png
+          fi
+          npm init -y
+          npm install @capacitor/core @capacitor/cli @capacitor/android
+          npm install -D @capacitor/assets
+          npx cap init "Cases Hack" "com.cases.hack" --web-dir=www
+          npx cap add android
+          if [ -f assets/icon.png ]; then
+            npx capacitor-assets generate --android
+          fi
+          npx cap copy android
+
+      - name: Build Debug APK
+        run: |
+          cd android
+          chmod +x gradlew
+          ./gradlew assembleDebug
+
+      - name: Package APK into ZIP
+        run: |
+          mkdir -p release-zip
+          cp android/app/build/outputs/apk/debug/app-debug.apk release-zip/cases-hack.apk
+          zip -j cases-hack-apk.zip release-zip/cases-hack.apk
+
+      - name: Upload ZIP Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: cases-hack-app-zip
+          path: cases-hack-apk.zip
