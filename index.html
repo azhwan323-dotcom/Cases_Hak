@@ -9,13 +9,15 @@
       box-sizing: border-box;
       font-family: Tahoma, sans-serif;
     }
+
     body {
       margin: 0;
       padding: 0;
       background: #0f172a;
       color: #f8fafc;
     }
-    /* فقط زمانی که با جاوااسکریپت کلاس show-on-web اضافه شود نمایش داده می‌شود */
+
+    /* فقط زمانی که در سایت (مرورگر) باز شود نمایش داده می‌شود */
     .web-install-bar {
       display: none;
       position: sticky;
@@ -23,13 +25,22 @@
       z-index: 999;
       align-items: center;
       justify-content: space-between;
+      gap: 10px;
       padding: 10px 14px;
       background: #1e293b;
       border-bottom: 1px solid #334155;
     }
+
     .web-install-bar.show-on-web {
       display: flex;
     }
+
+    .install-text {
+      font-size: 13px;
+      font-weight: bold;
+      color: #e2e8f0;
+    }
+
     .install-btn {
       display: inline-block;
       padding: 8px 14px;
@@ -39,9 +50,11 @@
       text-decoration: none;
       font-size: 13px;
       font-weight: bold;
+      white-space: nowrap;
     }
+
     .container {
-      max-width: 680px;
+      max-width: 720px;
       margin: 0 auto;
       padding: 16px;
     }
@@ -49,16 +62,23 @@
 </head>
 <body>
 
-  <!-- این نوار به‌طور پیش‌فرض مخفی است و فقط در سایت ظاهر می‌شود -->
+  <!-- نوار نصب برنامه (فقط در سایت ظاهر می‌شود) -->
   <div id="webInstallBar" class="web-install-bar">
-    <span>نسخه اندروید کاسِس هک</span>
-    <a id="installAppBtn" class="install-btn" href="https://github.com/azhwan323-dotcom/Cases_Hak/releases" target="_blank" rel="noopener noreferrer">
+    <span class="install-text">کاسِس هک — نسخه اندروید</span>
+    <a
+      id="installAppBtn"
+      class="install-btn"
+      href="https://github.com/azhwan323-dotcom/Cases_Hak/releases"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
       نصب برنامه
     </a>
   </div>
 
   <div class="container" id="appContent">
-    <!-- محتوای اصلی کاسِس هک -->
+    <h1>کاسِس هک</h1>
+    <p>محتوای اصلی کاسِس هک اینجا قرار می‌گیرد.</p>
   </div>
 
   <script>
@@ -68,9 +88,11 @@
         typeof window.Capacitor.isNativePlatform === "function" &&
         window.Capacitor.isNativePlatform());
 
-    // فقط اگر در محیط وب/سایت باشد (داخل اپ نباشد) دکمه نصب برنامه را نشان بده
     if (!isCapacitorApp) {
-      document.getElementById("webInstallBar").classList.add("show-on-web");
+      const bar = document.getElementById("webInstallBar");
+      if (bar) {
+        bar.classList.add("show-on-web");
+      }
     }
   </script>
 </body>
