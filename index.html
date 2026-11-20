@@ -12,50 +12,15 @@
 
     body {
       margin: 0;
-      padding: 0;
+      padding: 16px;
       background: #090d16;
       color: #f1f5f9;
       line-height: 1.8;
     }
 
-    .web-install-bar {
-      display: none;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-      padding: 10px 14px;
-      background: #111c33;
-      border-bottom: 1px solid #233863;
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-    }
-
-    .web-install-bar.show-on-web {
-      display: flex;
-    }
-
-    .web-install-title {
-      font-size: 13px;
-      font-weight: bold;
-      color: #e2e8f0;
-    }
-
-    .install-btn {
-      padding: 8px 15px;
-      border-radius: 8px;
-      background: #16a34a;
-      color: #ffffff;
-      text-decoration: none;
-      font-size: 13px;
-      font-weight: bold;
-      white-space: nowrap;
-    }
-
     .container {
       max-width: 760px;
       margin: 0 auto;
-      padding: 16px;
     }
 
     .brand-header {
@@ -68,27 +33,76 @@
     }
 
     .brand-header h1 {
-      margin: 0 0 4px 0;
+      margin: 0;
       font-size: 22px;
       color: #38bdf8;
     }
 
-    .brand-header p {
-      margin: 0;
-      font-size: 13px;
-      color: #94a3b8;
+    .search-box-wrap {
+      position: relative;
+      margin-bottom: 10px;
     }
 
     .search-input {
       width: 100%;
-      padding: 11px 14px;
+      padding: 11px 42px 11px 14px;
       border-radius: 10px;
       border: 1px solid #283548;
       background: #111827;
       color: #f8fafc;
       font-size: 14px;
-      margin-bottom: 14px;
       outline: none;
+    }
+
+    .search-input:focus {
+      border-color: #38bdf8;
+    }
+
+    .clear-search-btn {
+      position: absolute;
+      left: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: #1e293b;
+      color: #cbd5e1;
+      border: none;
+      border-radius: 6px;
+      padding: 3px 8px;
+      font-size: 12px;
+      cursor: pointer;
+      display: none;
+    }
+
+    .quick-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 14px;
+    }
+
+    .tag-btn {
+      background: #0f172a;
+      border: 1px solid #243247;
+      color: #94a3b8;
+      border-radius: 999px;
+      padding: 4px 10px;
+      font-size: 11.5px;
+      cursor: pointer;
+    }
+
+    .tag-btn:hover, .tag-btn.active {
+      background: #132242;
+      border-color: #38bdf8;
+      color: #e2e8f0;
+    }
+
+    .status-bar {
+      font-size: 12px;
+      color: #94a3b8;
+      margin-bottom: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
 
     .menu-list {
@@ -121,13 +135,15 @@
       color: #7dd3fc;
     }
 
-    .menu-badge {
-      font-size: 11px;
-      padding: 3px 8px;
-      border-radius: 999px;
-      background: #1e293b;
+    .empty-state {
+      text-align: center;
+      padding: 20px;
+      background: #0f172a;
+      border: 1px dashed #26354d;
+      border-radius: 12px;
       color: #94a3b8;
-      white-space: nowrap;
+      font-size: 13px;
+      display: none;
     }
 
     .content-panel {
@@ -205,62 +221,62 @@
   </style>
 </head>
 <body>
-
-  <div id="webInstallBar" class="web-install-bar">
-    <span class="web-install-title">کاسِس هک — نسخه اندروید</span>
-    <a
-      class="install-btn"
-      href="https://raw.githubusercontent.com/azhwan323-dotcom/Cases_Hak/main/base.apk"
-      download="base.apk"
-    >
-      نصب برنامه
-    </a>
-  </div>
-
   <div class="container">
     <div class="brand-header">
       <h1>کاسِس هک</h1>
-      <p>منوی سریع آموزش‌ها و ابزارها</p>
     </div>
 
-    <input
-      type="text"
-      id="searchBox"
-      class="search-input"
-      placeholder="جستجوی سریع بین گزینه‌ها..."
-      oninput="filterMenu()"
-    />
+    <div class="search-box-wrap">
+      <input
+        type="text"
+        id="searchBox"
+        class="search-input"
+        placeholder="جستجوی هوشمند در عنوان و متن آموزش‌ها..."
+        oninput="smartSearch()"
+      />
+      <button type="button" id="clearSearchBtn" class="clear-search-btn" onclick="resetSearch()">پاک کردن</button>
+    </div>
+
+    <div class="quick-tags" id="quickTags">
+      <button type="button" class="tag-btn" onclick="setQuickQuery('تلگرام')">تلگرام</button>
+      <button type="button" class="tag-btn" onclick="setQuickQuery('دوربین')">دوربین</button>
+      <button type="button" class="tag-btn" onclick="setQuickQuery('روبیکا')">روبیکا</button>
+      <button type="button" class="tag-btn" onclick="setQuickQuery('پروکسی')">پروکسی</button>
+      <button type="button" class="tag-btn" onclick="setQuickQuery('ترموکس')">ترموکس</button>
+    </div>
+
+    <div class="status-bar">
+      <span id="resultCount">۵ آموزش آماده</span>
+    </div>
 
     <div class="menu-list" id="menuList">
-      <button class="menu-btn" data-keywords="هک چنل گروه تلگرام کانال" onclick="openById('t_channel', 'هک چنل و گروه تلگرام')">
+      <button class="menu-btn searchable-item" onclick="openById('t_channel', 'هک چنل و گروه تلگرام')">
         <span>هک چنل و گروه تلگرام</span>
-        <span class="menu-badge">آموزش</span>
       </button>
 
-      <button class="menu-btn" data-keywords="هک گالری دوربین گوشی ترموکس cam" onclick="openById('t_cam', 'هک گالری و دوربین گوشی')">
+      <button class="menu-btn searchable-item" onclick="openById('t_cam', 'هک گالری و دوربین گوشی')">
         <span>هک گالری و دوربین گوشی</span>
-        <span class="menu-badge">ترموکس</span>
       </button>
 
-      <button class="menu-btn" data-keywords="هک اکانت روبیکا rubika ترموکس" onclick="openById('t_rubika', 'هک اکانت روبیکا')">
+      <button class="menu-btn searchable-item" onclick="openById('t_rubika', 'هک اکانت روبیکا')">
         <span>هک اکانت روبیکا</span>
-        <span class="menu-badge">ترموکس</span>
       </button>
 
-      <button class="menu-btn" data-keywords="ساخت پروکسی تلگرام ترموکس tor 9050" onclick="openById('t_proxy', 'ساخت پروکسی تلگرام با ترموکس')">
+      <button class="menu-btn searchable-item" onclick="openById('t_proxy', 'ساخت پروکسی تلگرام با ترموکس')">
         <span>ساخت پروکسی تلگرام با ترموکس</span>
-        <span class="menu-badge">پروکسی</span>
       </button>
 
-      <button class="menu-btn" data-keywords="آپدیت کردن برنامه ترموکس update upgrade" onclick="openById('t_update', 'آپدیت کردن برنامه ترموکس')">
+      <button class="menu-btn searchable-item" onclick="openById('t_update', 'آپدیت کردن برنامه ترموکس')">
         <span>آپدیت کردن برنامه ترموکس</span>
-        <span class="menu-badge">آپدیت</span>
       </button>
 
-      <a class="menu-btn telegram-btn" data-keywords="عضویت کانال تلگرام هک Cases_Hak" href="https://t.me/Cases_Hak" target="_blank" rel="noopener noreferrer">
+      <a class="menu-btn telegram-btn searchable-item" href="https://t.me/Cases_Hak" target="_blank" rel="noopener noreferrer">
         <span>عضویت در کانال تلگرامی هک</span>
-        <span class="menu-badge">@Cases_Hak</span>
       </a>
+    </div>
+
+    <div id="emptyState" class="empty-state">
+      موردی با این عبارت پیدا نشد.
     </div>
 
     <div id="contentPanel" class="content-panel">
@@ -278,6 +294,7 @@
 کافیه یک چنل خصوصی بسازین و لینک چنلی که میخواید را هک کنید رو داخل چنل خودتون میزاریم و روی لینک کانال قربانی میزنی و میری داخلش و ۲۱ بار روی پروفایل میزنید و مییا  بیرون بعد داخل ۵ بار از کانال او بیاید بیرون و برید بیرون و در اخر باید لفت بدید و بعد از طریق لینکی که در چنل گذاشتین وارد چنلش میشین و میبینی سوپرایزز😈
 
 حالا اموزش هک گروه تلگرام👌
+
 کافیه عضو گروه بشین و هرطوری باشه ادمین بشید و ۲ بار از گروه لف میدین و دوباره میاین داخل گروه و با هر ۲بار لفت دادن  و عضو شدن در گروهش ۵ عضو از گروهش کم میشه و مثلا شما ۴ بار اینکار بکنین ۱۰ عضو کم میشه و اون نمیدونه کار کی هست و بعدا لفت هم بدین هنوز کار میکنه😈</div>
 
     <div id="t_cam" style="display:none;">خب دوستان برای این کار باید ترموکس رو از گوگل پلی نصب بکنید یا همون فروشگاه اگه تونستین در سایت اصلی ترموکس نصب بکنین توجه کنید از سایت های دیگه نصب نکنید چون هک میشین خب اگه نصب کردین کد ها را به ترتیب بزنید در ترموکس
@@ -350,20 +367,18 @@ pkg install nodejs
   <div id="toast" class="toast">کپی شد!</div>
 
   <script>
-    (function () {
-      var isApp =
-        window.location.protocol === "capacitor:" ||
-        (window.Capacitor &&
-          typeof window.Capacitor.isNativePlatform === "function" &&
-          window.Capacitor.isNativePlatform());
+    function normalizeFa(str) {
+      return (str || "")
+        .toLowerCase()
+        .replace(/ي/g, "ی")
+        .replace(/ك/g, "ک")
+        .replace(/[۰-۹]/g, function (d) {
+          return String.fromCharCode(d.charCodeAt(0) - 1728);
+        });
+    }
 
-      if (!isApp) {
-        var bar = document.getElementById("webInstallBar");
-        if (bar) bar.classList.add("show-on-web");
-      }
-    })();
-
-    function openById(sourceId, title) {
+    function openById(sourceId, title, saveState) {
+      if (saveState === undefined) saveState = true;
       var src = document.getElementById(sourceId);
       var panel = document.getElementById("contentPanel");
       var titleEl = document.getElementById("panelTitle");
@@ -373,12 +388,20 @@ pkg install nodejs
       titleEl.textContent = title;
       textEl.textContent = src.textContent;
       panel.classList.add("active");
-      panel.scrollIntoView({ behavior: "smooth", block: "nearest" });
+      if (saveState) {
+        try {
+          localStorage.setItem("lastTutorial", JSON.stringify({ id: sourceId, title: title }));
+        } catch (e) {}
+        panel.scrollIntoView({ behavior: "smooth", block: "nearest" });
+      }
     }
 
     function closePanel() {
       var panel = document.getElementById("contentPanel");
       if (panel) panel.classList.remove("active");
+      try {
+        localStorage.removeItem("lastTutorial");
+      } catch (e) {}
     }
 
     function copyText() {
@@ -401,15 +424,78 @@ pkg install nodejs
       }, 1700);
     }
 
-    function filterMenu() {
+    function setQuickQuery(word) {
       var input = document.getElementById("searchBox");
-      var q = input ? input.value.trim().toLowerCase() : "";
-      var items = document.querySelectorAll("#menuList .menu-btn");
+      if (!input) return;
+      input.value = normalizeFa(input.value) === normalizeFa(word) ? "" : word;
+      smartSearch();
+    }
+
+    function resetSearch() {
+      var input = document.getElementById("searchBox");
+      if (input) input.value = "";
+      smartSearch();
+    }
+
+    function smartSearch() {
+      var input = document.getElementById("searchBox");
+      var clearBtn = document.getElementById("clearSearchBtn");
+      var emptyState = document.getElementById("emptyState");
+      var resultCount = document.getElementById("resultCount");
+      var q = normalizeFa(input ? input.value.trim() : "");
+
+      if (clearBtn) {
+        clearBtn.style.display = q ? "block" : "none";
+      }
+
+      var tagButtons = document.querySelectorAll("#quickTags .tag-btn");
+      for (var t = 0; t < tagButtons.length; t++) {
+        var tagText = normalizeFa(tagButtons[t].textContent);
+        tagButtons[t].classList.toggle("active", Boolean(q && tagText === q));
+      }
+
+      var items = document.querySelectorAll("#menuList .searchable-item");
+      var visibleTutorials = 0;
+      var totalShown = 0;
+
       for (var i = 0; i < items.length; i++) {
-        var txt = (items[i].textContent + " " + (items[i].getAttribute("data-keywords") || "")).toLowerCase();
-        items[i].style.display = !q || txt.indexOf(q) !== -1 ? "flex" : "none";
+        var el = items[i];
+        var titleText = normalizeFa(el.textContent);
+        var onclickAttr = el.getAttribute("onclick") || "";
+        var matchId = onclickAttr.match(/openById\('([^']+)'/);
+        var bodyText = "";
+        if (matchId && document.getElementById(matchId[1])) {
+          bodyText = normalizeFa(document.getElementById(matchId[1]).textContent);
+        }
+
+        var isMatch = !q || titleText.indexOf(q) !== -1 || bodyText.indexOf(q) !== -1;
+        el.style.display = isMatch ? "flex" : "none";
+
+        if (isMatch) {
+          totalShown++;
+          if (el.tagName === "BUTTON") visibleTutorials++;
+        }
+      }
+
+      if (emptyState) {
+        emptyState.style.display = totalShown === 0 ? "block" : "none";
+      }
+
+      if (resultCount) {
+        resultCount.textContent = q
+          ? visibleTutorials + " آموزش مرتبط پیدا شد"
+          : "۵ آموزش آماده";
       }
     }
+
+    window.addEventListener("DOMContentLoaded", function () {
+      try {
+        var saved = JSON.parse(localStorage.getItem("lastTutorial") || "null");
+        if (saved && saved.id && saved.title) {
+          openById(saved.id, saved.title, false);
+        }
+      } catch (e) {}
+    });
   </script>
 </body>
 </html>
