@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>کاسِس هک</title>
+  <title>کاسِس هک — Cases Hack</title>
   <style>
     * {
       box-sizing: border-box;
@@ -13,39 +13,39 @@
     body {
       margin: 0;
       padding: 0;
-      background: #0f172a;
-      color: #f8fafc;
+      background: #0b1120;
+      color: #f1f5f9;
+      line-height: 1.7;
     }
 
-    /* فقط زمانی که در سایت (مرورگر) باز شود نمایش داده می‌شود */
+    /* نوار نصب برنامه — فقط در سایت (مرورگر) ظاهر می‌شود */
     .web-install-bar {
       display: none;
       position: sticky;
       top: 0;
-      z-index: 999;
+      z-index: 1000;
       align-items: center;
       justify-content: space-between;
       gap: 10px;
       padding: 10px 14px;
-      background: #1e293b;
-      border-bottom: 1px solid #334155;
+      background: #132038;
+      border-bottom: 1px solid #253b63;
     }
 
     .web-install-bar.show-on-web {
       display: flex;
     }
 
-    .install-text {
+    .web-install-bar span {
       font-size: 13px;
       font-weight: bold;
       color: #e2e8f0;
     }
 
     .install-btn {
-      display: inline-block;
-      padding: 8px 14px;
+      padding: 7px 14px;
       border-radius: 8px;
-      background: #22c55e;
+      background: #16a34a;
       color: #ffffff;
       text-decoration: none;
       font-size: 13px;
@@ -54,9 +54,141 @@
     }
 
     .container {
-      max-width: 720px;
+      max-width: 780px;
       margin: 0 auto;
       padding: 16px;
+    }
+
+    .hero {
+      background: linear-gradient(135deg, #172554, #1e293b);
+      border: 1px solid #334155;
+      border-radius: 14px;
+      padding: 18px;
+      margin-bottom: 16px;
+    }
+
+    .hero h1 {
+      margin: 0 0 6px 0;
+      font-size: 22px;
+      color: #38bdf8;
+    }
+
+    .hero p {
+      margin: 0;
+      font-size: 13px;
+      color: #cbd5e1;
+    }
+
+    .search-box {
+      width: 100%;
+      padding: 11px 14px;
+      border-radius: 10px;
+      border: 1px solid #334155;
+      background: #1e293b;
+      color: #f8fafc;
+      font-size: 14px;
+      margin-bottom: 14px;
+      outline: none;
+    }
+
+    .tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
+    .tab-btn {
+      padding: 8px 14px;
+      border-radius: 9px;
+      border: 1px solid #334155;
+      background: #1e293b;
+      color: #e2e8f0;
+      font-size: 13px;
+      cursor: pointer;
+    }
+
+    .tab-btn.active {
+      background: #2563eb;
+      border-color: #3b82f6;
+      color: #fff;
+      font-weight: bold;
+    }
+
+    .card {
+      background: #111827;
+      border: 1px solid #1f2937;
+      border-radius: 12px;
+      padding: 14px;
+      margin-bottom: 12px;
+    }
+
+    .card-title {
+      font-size: 15px;
+      font-weight: bold;
+      color: #f8fafc;
+      margin: 0 0 6px 0;
+    }
+
+    .card-desc {
+      font-size: 13px;
+      color: #94a3b8;
+      margin: 0 0 10px 0;
+    }
+
+    .code-box {
+      background: #020617;
+      border: 1px solid #1e293b;
+      border-radius: 8px;
+      padding: 10px;
+      font-family: monospace;
+      font-size: 12px;
+      color: #86efac;
+      overflow-x: auto;
+      margin-bottom: 10px;
+      direction: ltr;
+      text-align: left;
+    }
+
+    .actions {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 7px 12px;
+      border-radius: 8px;
+      border: none;
+      font-size: 12px;
+      font-weight: bold;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .btn-copy {
+      background: #0284c7;
+      color: #fff;
+    }
+
+    .btn-link {
+      background: #334155;
+      color: #f8fafc;
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 18px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #16a34a;
+      color: #fff;
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-size: 13px;
+      display: none;
+      z-index: 2000;
     }
   </style>
 </head>
@@ -64,9 +196,8 @@
 
   <!-- نوار نصب برنامه (فقط در سایت ظاهر می‌شود) -->
   <div id="webInstallBar" class="web-install-bar">
-    <span class="install-text">کاسِس هک — نسخه اندروید</span>
+    <span>نسخه اندروید کاسِس هک</span>
     <a
-      id="installAppBtn"
       class="install-btn"
       href="https://github.com/azhwan323-dotcom/Cases_Hak/releases"
       target="_blank"
@@ -76,10 +207,31 @@
     </a>
   </div>
 
-  <div class="container" id="appContent">
-    <h1>کاسِس هک</h1>
-    <p>محتوای اصلی کاسِس هک اینجا قرار می‌گیرد.</p>
+  <div class="container">
+    <div class="hero">
+      <h1>کاسِس هک | Cases Hack</h1>
+      <p>دسترسی سریع به دستورات، ابزارها و راهنماها</p>
+    </div>
+
+    <input
+      type="text"
+      id="searchInput"
+      class="search-box"
+      placeholder="جستجو در بخش‌ها و دستورات..."
+      oninput="renderItems()"
+    />
+
+    <div class="tabs" id="tabsContainer">
+      <button class="tab-btn active" data-cat="all" onclick="selectCategory('all', this)">همه</button>
+      <button class="tab-btn" data-cat="termux" onclick="selectCategory('termux', this)">ترمواکس و پایتون</button>
+      <button class="tab-btn" data-cat="web" onclick="selectCategory('web', this)">وب و گیت‌هاب</button>
+      <button class="tab-btn" data-cat="links" onclick="selectCategory('links', this)">لینک‌ها</button>
+    </div>
+
+    <div id="itemsList"></div>
   </div>
+
+  <div id="toast" class="toast">کپی شد!</div>
 
   <script>
     const isCapacitorApp =
@@ -89,11 +241,102 @@
         window.Capacitor.isNativePlatform());
 
     if (!isCapacitorApp) {
-      const bar = document.getElementById("webInstallBar");
-      if (bar) {
-        bar.classList.add("show-on-web");
-      }
+      document.getElementById("webInstallBar").classList.add("show-on-web");
     }
+
+    const items = [
+      {
+        cat: "termux",
+        title: "آپدیت سریع محیط ترمواکس",
+        desc: "به‌روزرسانی پکیج‌ها و نصب ابزارهای پایه",
+        code: "pkg update && pkg upgrade -y && pkg install python git -y",
+        url: ""
+      },
+      {
+        cat: "web",
+        title: "لینک کوتاه سایت کاسِس هک",
+        desc: "آدرس کوتاه‌شده برای اشتراک‌گذاری سریع",
+        code: "",
+        url: "https://tinyurl.com/Cases-hak"
+      },
+      {
+        cat: "links",
+        title: "مخزن گیت‌هاب Cases_Hak",
+        desc: "مشاهده فایل‌ها، سورس و ریلیزهای پروژه",
+        code: "",
+        url: "https://github.com/azhwan323-dotcom/Cases_Hak"
+      }
+    ];
+
+    let activeCategory = "all";
+
+    function selectCategory(cat, btnEl) {
+      activeCategory = cat;
+      document.querySelectorAll(".tab-btn").forEach((b) => b.classList.remove("active"));
+      btnEl.classList.add("active");
+      renderItems();
+    }
+
+    function showToast(msg) {
+      const toast = document.getElementById("toast");
+      toast.textContent = msg;
+      toast.style.display = "block";
+      setTimeout(() => {
+        toast.style.display = "none";
+      }, 1800);
+    }
+
+    function copyText(text) {
+      navigator.clipboard.writeText(text).then(() => {
+        showToast("کپی شد!");
+      });
+    }
+
+    function renderItems() {
+      const q = document.getElementById("searchInput").value.trim().toLowerCase();
+      const listEl = document.getElementById("itemsList");
+
+      const filtered = items.filter((item) => {
+        const matchCat = activeCategory === "all" || item.cat === activeCategory;
+        const matchQuery =
+          !q ||
+          item.title.toLowerCase().includes(q) ||
+          item.desc.toLowerCase().includes(q) ||
+          (item.code && item.code.toLowerCase().includes(q));
+        return matchCat && matchQuery;
+      });
+
+      if (!filtered.length) {
+        listEl.innerHTML = '<div class="card"><p class="card-desc">موردی پیدا نشد.</p></div>';
+        return;
+      }
+
+      listEl.innerHTML = filtered
+        .map(
+          (item) => `
+          <div class="card">
+            <h3 class="card-title">${item.title}</h3>
+            <p class="card-desc">${item.desc}</p>
+            ${item.code ? `<div class="code-box">${item.code}</div>` : ""}
+            <div class="actions">
+              ${
+                item.code
+                  ? `<button class="btn btn-copy" onclick="copyText(\`${item.code.replace(/`/g, "\\`")}\`)">کپی کد</button>`
+                  : ""
+              }
+              ${
+                item.url
+                  ? `<a class="btn btn-link" href="${item.url}" target="_blank" rel="noopener noreferrer">باز کردن لینک</a>`
+                  : ""
+              }
+            </div>
+          </div>
+        `
+        )
+        .join("");
+    }
+
+    renderItems();
   </script>
 </body>
 </html>
