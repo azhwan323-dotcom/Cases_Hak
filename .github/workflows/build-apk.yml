@@ -29,6 +29,7 @@ jobs:
           npx cap init "کاسس هک" "com.caseshak.app" --web-dir www
           npx cap add android
           if [ -f "icon.png" ]; then
+            rm -f android/app/src/main/res/mipmap-anydpi*/ic_launcher*.xml
             for dir in android/app/src/main/res/mipmap-*; do
               cp icon.png "$dir/ic_launcher.png"
               cp icon.png "$dir/ic_launcher_round.png"
