@@ -36,7 +36,7 @@ jobs:
             cp icon.png assets/icon.png
           fi
           npm init -y
-          npm install @capacitor/core @capacitor/cli @capacitor/android
+          npm install @capacitor/core@6 @capacitor/cli@6 @capacitor/android@6
           npm install -D @capacitor/assets
           npx cap init "Cases Hack" "com.cases.hack" --web-dir=www
           npx cap add android
@@ -62,4 +62,3 @@ jobs:
         with:
           name: cases-hack-app-zip
           path: cases-hack-apk.zip
-          
